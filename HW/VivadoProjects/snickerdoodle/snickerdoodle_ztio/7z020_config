@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# TCL Template Filename
+TCL_TEMP_FILE=../../zynq_bp.tcl.in
+
+# The fpga device we are building for
+FPGA_DEVICE=xc7z020clg400-1
+FPGA_DEV_SHORT=7z020
+
+# Base Project Name
+PRJ_NAME=snickerdoodle_"$FPGA_DEV_SHORT"
+
+# The board part file url, if the target has one
+BOARD_PART=""
+
+# The physical package pin constraint file
+PIN_HW_XDC_FILE=const/snickerdoodle_pinmap.xdc
+
+# The filename of the top level block diagram
+TOP_LEVEL_BD_FILE=scripts/snickerdoodle_bd.tcl
+
+## HostMot2 Pin constraints - these update the IP. Physical pin constraints
+#  belong in an xdc file above
+
+# HM2 Pin Filename relative to project folder
+PIN_FILE=const/PIN_SNICKERDOODLE_34.vhd
+# Pin package name defined in above pin file
+PIN_NAME=PIN_SNICKERDOODLE_34
+#FWID File name in the const folder
+FWID_NAME=FWID_SNICKERDOODLE_34
+
+############################################################################
+# HostMot2 Generic Parameters, autofills IP correctly without regenerating
+# block diagram script
+############################################################################
+
+# The name of the board to compile into the IP. Matches board name in hal files
+BOARD_NAME_HIGH_HEX=4F49545A    #SNICKERDOODLE
+BOARD_NAME_LOW_HEX=5249594D     #MYIR
