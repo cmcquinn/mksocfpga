@@ -119,46 +119,53 @@ package PIN_REPLICOOKIE is
 	-- PinDesc
 	-- The PinDesk declaration is an array that controls how the pins of the modules are
 	-- ordered. The order in which the the pins appear here determines the order in which
-	-- they are assigned in the HM2 IObits bus, with the first pin in the array being bit 0
-	-- of IObits, and the last pin being bit n-1.
+	-- they are assigned in the HM2 IOBits bus, with the first pin in the array being bit 0
+	-- of IOBits, and the last pin being bit n-1.
 
 	constant PinDesc : PinDescType :=(
     -- 	Base func	sec unit sec func 	 sec pin			-- hostmot2 Header	Pin Func
-		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 01	JA1		01	X Dir
-		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 02	JA1		02	X Step
-		IOPortTag & x"01" & StepGenTag & StepGenDirPin, 	-- I/O 03	JA1		03	Y Dir
-		IOPortTag & x"01" & StepGenTag & StepGenStepPin,	-- I/O 04	JA1		04	Y Step
-		IOPortTag & x"02" & StepGenTag & StepGenDirPin,		-- I/O 05	JA1		05 	Z Dir
-		IOPortTag & x"02" & StepGenTag & StepGenStepPin,	-- I/O 06	JA1		06	Z Step
-		IOPortTag & x"03" & StepGenTag & StepGenDirPin,		-- I/O 07	JA1		07	A Dir
-		IOPortTag & x"03" & StepGenTag & StepGenStepPin,	-- I/O 08	JA1		08  A Step
-		IOPortTag & x"04" & StepGenTag & StepGenDirPin,		-- I/O 09	JA1		09  B Dir
-		IOPortTag & x"04" & StepGenTag & StepGenStepPin,   	-- I/O 10	JA1		10  B Step
-		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 11	JA1		11  PWM
-		IOPortTag & x"01" & PWMTag & PWMAOutPin,			-- I/O 12	JA1		12	PWM
-        IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 13	JA1		13	PWM
-		IOPortTag & x"03" & PWMTag & PWMAOutPin, 			-- I/O 14	JA1		14	PWM
-		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 15	JA1		15	PWM
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 16	JA1		16  GPIO
+		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 00	JA1		01	X Dir
+		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 01	JA1		02	X Step
+		IOPortTag & x"01" & StepGenTag & StepGenDirPin, 	-- I/O 02	JA1		03	Y Dir
+		IOPortTag & x"01" & StepGenTag & StepGenStepPin,	-- I/O 03	JA1		04	Y Step
+		IOPortTag & x"02" & StepGenTag & StepGenDirPin,		-- I/O 04	JA1		05 	Z Dir
+		IOPortTag & x"02" & StepGenTag & StepGenStepPin,	-- I/O 05	JA1		06	Z Step
+		IOPortTag & x"03" & StepGenTag & StepGenDirPin,		-- I/O 06	JA1		07	A Dir
+		IOPortTag & x"03" & StepGenTag & StepGenStepPin,	-- I/O 07	JA1		08  A Step
+		IOPortTag & x"04" & StepGenTag & StepGenDirPin,		-- I/O 08	JA1		09  B Dir
+		IOPortTag & x"04" & StepGenTag & StepGenStepPin,   	-- I/O 09	JA1		10  B Step
+		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 10	JA1		11  PWM
+		IOPortTag & x"01" & PWMTag & PWMAOutPin,			-- I/O 11	JA1		12	PWM
+        IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 12	JA1		13	PWM
+		IOPortTag & x"03" & PWMTag & PWMAOutPin, 			-- I/O 13	JA1		14	PWM
+		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 14	JA1		15	PWM
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 15	JA1		16  GPIO
 		
     -- 	Base func  sec unit sec func	sec pin				-- hostmot2 Header	Pin Func
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 17	JA1		17  GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 18	JA1		18  GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 19	JA1		19  GPIO
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 20	JA1		20	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 21	JA1		21	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 22	JA1		22	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 23	JA1		23	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 24	JA1		24 	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 25	JA1		25	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 26	JA1		26	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 27	JA1		27	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 28	JA1		28	GPIO
-        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 29	JA1		29	GPIO
-		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 30	JA1		30	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 31	JA1		31	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 32	JA1		32	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	JA1		33	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 16	JA1		17  GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 17	JA1		18  GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 18	JA1		19  GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 19	JA1		20	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 20	JA1		21	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 21	JA1		22	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 22	JA1		23	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 23	JA1		24 	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 24	JA1		25	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 25	JA1		26	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 26	JA1		27	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 27	JA1		28	GPIO
+        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 28	JA1		29	GPIO
+		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 29	JA1		30	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 30	JA1		31	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 31	JA1		32	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 32	JA1		33	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	JA1		34	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 34	JA1		35	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 35	JA1		36	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 36	JA1		37	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 37	JA1		38	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 38	JA1		39	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 39	JA1		40	GPIO
 		
 		-- Fill remaining 144 pins
         emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
