@@ -73,8 +73,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 use work.IDROMConst.all;
 
--- Package description
--- The "package" declaration is an array of ModuleRecords that defines which HM2 
+-- Module list
+-- The ModuleID declaration is an array of ModuleRecords that defines which HM2 
 -- modules are included in this configuration. The ModuleRecord type is defined in
 -- IDROMConst.vhd, and tells HM2 information about each module such as its address,
 -- pinout, and number of registers.
@@ -83,9 +83,9 @@ package PIN_REPLICOOKIE is
 	constant ModuleID : ModuleIDType :=(
 	--	Module			Version No.	Clock			NumInstances	BaseAddr					NumRegisters			Strides		BitMask
 		(WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
-		(StepGenTag,	x"02",		ClockLowTag,	x"08",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
+		(StepGenTag,	x"02",		ClockLowTag,	x"05",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
 		(FWIDTag,       x"00",  	ClockLowTag,    x"01",  		FWIDAddr&PadT,        		FWIDNumRegs,            x"00",  	FWIDMPBitMask),
-		(PWMTag,		x"00",		ClockHighTag,	x"03",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
+		(PWMTag,		x"00",		ClockHighTag,	x"05",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
 		(LEDTag,		x"00",		ClockLowTag,	x"01",			LEDAddr&PadT,				LEDNumRegs,				x"00",		LEDMPBitMask),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
@@ -114,47 +114,51 @@ package PIN_REPLICOOKIE is
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000")
-		); func 	 sec pin			-- hostmot2 Header  Pin Func
-		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 04	J6      01	A Dir
-		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 05	J6      02	A Step
-		IOPortTag & x"01" & StepGenTag & StepGenDirPin, 	-- I/O 06	J6      03	B Dir
-		IOPortTag & x"01" & StepGenTag & StepGenStepPin,	-- I/O 07	J6      04	B Step
-		IOPortTag & x"02" & StepGenTag & StepGenDirPin,		-- I/O 08	J6      05 	C Dir
-		IOPortTag & x"02" & StepGenTag & StepGenStepPin,	-- I/O 09	J6      06	C Step
-		IOPortTag & x"03" & StepGenTag & StepGenDirPin,		-- I/O 10	J6      07	D Dir
+		);
 
-
+	-- PinDesc
+	-- The PinDesk declaration is an array that controls how the pins of the modules are
+	-- ordered. The order in which the the pins appear here determines the order in which
+	-- they are assigned in the HM2 IObits bus, with the first pin in the array being bit 0
+	-- of IObits, and the last pin being bit n-1.
 
 	constant PinDesc : PinDescType :=(
-    -- 	Base func  sec unit sec		IOPortTag & x"03" & StepGenTag & StepGenStepPin,	-- I/O 11	J6      08	D Step
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 00	U20 SW  01   input switch GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 01	U20 SW  02   input switch GPIO
-		IOPortTag & x"00" & NullTag & NullPin,          	-- I/O 02	U20 SW  03   input switch GPIO
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 03	U20 SW  04   input switch GPIO
-		IOPortTag & x"00" & HM2DPLLTag & HM2DPLLRefOutPin,	-- I/O 12	J5      01	DPLL Ref Output
-        IOPortTag & x"00" & QCountTag & QCountQAPin,  		-- I/O 13	J5      02	Input 1 (Quad A)
-		IOPortTag & x"00" & QCountTag & QCountQBPin,  		-- I/O 14	J5      03	Input 2 (Quad B)
-		IOPortTag & x"00" & QCountTag & QCountIdxPin,    	-- I/O 15	J5      04	Input 3 (Quad Idx)
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 16	J5      05  GPIO
+    -- 	Base func	sec unit sec func 	 sec pin			-- hostmot2 Header	Pin Func
+		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 01	JA1		01	X Dir
+		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 02	JA1		02	X Step
+		IOPortTag & x"01" & StepGenTag & StepGenDirPin, 	-- I/O 03	JA1		03	Y Dir
+		IOPortTag & x"01" & StepGenTag & StepGenStepPin,	-- I/O 04	JA1		04	Y Step
+		IOPortTag & x"02" & StepGenTag & StepGenDirPin,		-- I/O 05	JA1		05 	Z Dir
+		IOPortTag & x"02" & StepGenTag & StepGenStepPin,	-- I/O 06	JA1		06	Z Step
+		IOPortTag & x"03" & StepGenTag & StepGenDirPin,		-- I/O 07	JA1		07	A Dir
+		IOPortTag & x"03" & StepGenTag & StepGenStepPin,	-- I/O 08	JA1		08  A Step
+		IOPortTag & x"04" & StepGenTag & StepGenDirPin,		-- I/O 09	JA1		09  B Dir
+		IOPortTag & x"04" & StepGenTag & StepGenStepPin,   	-- I/O 10	JA1		10  B Step
+		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 11	JA1		11  PWM
+		IOPortTag & x"01" & PWMTag & PWMAOutPin,			-- I/O 12	JA1		12	PWM
+        IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 13	JA1		13	PWM
+		IOPortTag & x"03" & PWMTag & PWMAOutPin, 			-- I/O 14	JA1		14	PWM
+		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 15	JA1		15	PWM
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 16	JA1		16  GPIO
 		
-    -- 	Base func  sec unit sec func 	 sec pin			-- hostmot2 Header Pin Func
-		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 17	J5      06   PWM
-		IOPortTag & x"01" & PWMTag & PWMAOutPin,          	-- I/O 18	J5      07   PWM
-		IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 19	J5      08   PWM
-		IOPortTag & x"04" & StepGenTag & StepGenDirPin,     -- I/O 20	J3      05	E Dir
-		IOPortTag & x"04" & StepGenTag & StepGenStepPin,	-- I/O 21	J3      06	E Step
-		IOPortTag & x"05" & StepGenTag & StepGenDirPin,	    -- I/O 22	J3      07	F Dir
-		IOPortTag & x"05" & StepGenTag & StepGenStepPin,	-- I/O 23	J3      08	F Step
-		IOPortTag & x"06" & StepGenTag & StepGenDirPin,		-- I/O 24	J3      09 	G Dir
-		IOPortTag & x"06" & StepGenTag & StepGenStepPin,	-- I/O 25	J3      10	G Step
-		IOPortTag & x"07" & StepGenTag & StepGenDirPin,		-- I/O 26	J3      11	H Dir
-		IOPortTag & x"07" & StepGenTag & StepGenStepPin,	-- I/O 27	J3      12	H Step
-		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 28	J3      13	GPIO
-        IOPortTag & x"01" & QCountTag & QCountQAPin,  		-- I/O 29	J3      14	Input 1 (Quad A)
-		IOPortTag & x"01" & QCountTag & QCountQBPin,  		-- I/O 30	J3      15	Input 2 (Quad B)
-		IOPortTag & x"01" & QCountTag & QCountIdxPin,    	-- I/O 31	J3      16	Input 3 (Quad Idx)
-		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 32	J3      17	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	J3      18	GPIO
+    -- 	Base func  sec unit sec func	sec pin				-- hostmot2 Header	Pin Func
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 17	JA1		17  GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 18	JA1		18  GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 19	JA1		19  GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 20	JA1		20	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 21	JA1		21	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 22	JA1		22	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 23	JA1		23	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 24	JA1		24 	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 25	JA1		25	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 26	JA1		26	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 27	JA1		27	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 28	JA1		28	GPIO
+        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 29	JA1		29	GPIO
+		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 30	JA1		30	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 31	JA1		31	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 32	JA1		32	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	JA1		33	GPIO
 		
 		-- Fill remaining 144 pins
         emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
