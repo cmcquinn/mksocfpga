@@ -14,10 +14,13 @@ def gen_fwid(*args,**kwargs):
     fw.num_leds = 1
     fw.board_name = "Replicookie"
 
-    # The Snickerdoodle black has 5 FPGA connectors,
-    # but only 1 of them is used for HM2 stuff
+    # 25 out of the 40 pins on each header are usable
     c = fw.connector.add()
     c.name = "JA.GPIO1"
-    c.pins = 40
+    c.pins = 25
+
+    c = fw.connector.add()
+    c.name = "JA.GPIO2"
+    c.pins = 25
 
     return fw
