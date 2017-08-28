@@ -41,10 +41,10 @@
 ,,,
 ,Other,,
 ,JA2,5,PWM - bed heater
-,JA2,6,GPIO
-,JA2,7,GPIO
-,JA2,8,GPIO
-,JA2,11,GPIO
+,JA2,6,GPIO - relay control
+,JA2,7,GPIO - relay control
+,JA2,8,GPIO - ESTOP
+,JA2,11,GPIO - Power on/off
 ,JA2,12,GPIO
 ,JA2,13,GPIO
 ,JA2,14,GPIO

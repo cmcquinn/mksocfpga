@@ -83,11 +83,11 @@ package PIN_REPLICOOKIE is
 	constant ModuleID : ModuleIDType :=(
 	--	Module			Version No.	Clock			NumInstances	BaseAddr					NumRegisters			Strides		BitMask
 		(WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
+		(IOPortTag,		x"00",		ClockLowTag,	x"02",			PortAddr&PadT,				IOPortNumRegs,			x"00",		IOPortMPBitMask),
 		(StepGenTag,	x"02",		ClockLowTag,	x"05",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
 		(FWIDTag,       x"00",  	ClockLowTag,    x"01",  		FWIDAddr&PadT,        		FWIDNumRegs,            x"00",  	FWIDMPBitMask),
 		(PWMTag,		x"00",		ClockHighTag,	x"05",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
 		(LEDTag,		x"00",		ClockLowTag,	x"01",			LEDAddr&PadT,				LEDNumRegs,				x"00",		LEDMPBitMask),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
@@ -146,37 +146,32 @@ package PIN_REPLICOOKIE is
 		IOPortTag & x"03" & StepGenTag & StepGenDirPin,		-- I/O 12	JA1		23	A Dir
 		IOPortTag & x"03" & StepGenTag & StepGenStepPin,	-- I/O 13	JA1		24  A Step
 		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 14	JA1		25	GPIO - Extruder A enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 15	JA1		26	GPIO - Extruder A Home/limit
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 16	JA1		04 	GPIO - Extruder A filament loaded
-		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 17	JA1		35  PWM - Extruder A heater
-		IOPortTag & x"01" & PWMTag & PWMAOutPin,			-- I/O 18	JA1		36	PWM - Extruder A fan control
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 15	JA1		04 	GPIO - Extruder A filament loaded
+		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 16	JA1		35  PWM - Extruder A heater
+		IOPortTag & x"01" & PWMTag & PWMAOutPin,			-- I/O 17	JA1		36	PWM - Extruder A fan control
 
 	--	Extruder B
-		IOPortTag & x"04" & StepGenTag & StepGenDirPin,		-- I/O 19	JA1		29  B Dir
-		IOPortTag & x"04" & StepGenTag & StepGenStepPin,   	-- I/O 20	JA1		30  B Step
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 21	JA1		31	GPIO - Extruder B enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 22	JA1		32	GPIO - Extruder B Home/limit
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 23	JA2		04	GPIO - Extruder B filament loaded
-        IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 24	JA1		37	PWM - Extruder B heater
-		IOPortTag & x"03" & PWMTag & PWMAOutPin, 			-- I/O 25	JA1		38	PWM - Extruder B fan control
+		IOPortTag & x"04" & StepGenTag & StepGenDirPin,		-- I/O 18	JA1		29  B Dir
+		IOPortTag & x"04" & StepGenTag & StepGenStepPin,   	-- I/O 19	JA1		30  B Step
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 20	JA1		31	GPIO - Extruder B enable
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 21	JA2		04	GPIO - Extruder B filament loaded
+        IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 22	JA1		37	PWM - Extruder B heater
+		IOPortTag & x"03" & PWMTag & PWMAOutPin, 			-- I/O 23	JA1		38	PWM - Extruder B fan control
 		
     -- 	Base func  sec unit sec func	sec pin				-- hostmot2 Header	Pin Func
 		
-		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 26	JA2		05	PWM - bed heater
-		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 27	JA1		06	GPIO
-        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 28	JA1		07	GPIO
-		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 29	JA1		08	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 30	JA1		11	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 31	JA1		12	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 32	JA1		13	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	JA1		14	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 34	JA1		17	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 35	JA1		18	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 36	JA1		19	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 37	JA1		20	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 38	JA1		39	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 39	JA1		40	GPIO
+		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 24	JA2		05	PWM - bed heater
+		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 25	JA2		6	GPIO
+        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 26	JA2		7	GPIO
+		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 27	JA2		8	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 28	JA2		11	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 29	JA2		12	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 30	JA2		13	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 31	JA2		14	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 32	JA2		17	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	JA2		18	GPIO
 		
+
 		-- Fill remaining 144 pins
         emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
 		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,

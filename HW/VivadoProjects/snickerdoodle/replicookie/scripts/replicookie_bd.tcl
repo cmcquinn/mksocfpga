@@ -104,15 +104,15 @@ proc create_root_design { parentCell } {
   set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO ]
 
   # Create ports
-  set IOBits [ create_bd_port -dir IO -from 63 -to 0 IOBits ]
+  set IOBits [ create_bd_port -dir IO -from 33 -to 0 IOBits ]
 
   # Create instance: HostMot2_ip_wrap_0, and set properties
   set HostMot2_ip_wrap_0 [ create_bd_cell -type ip -vlnv machinekit.io:user:HostMot2_ip_wrap:1.0 HostMot2_ip_wrap_0 ]
   set_property -dict [ list \
 CONFIG.ClockLow {100000000} \
 CONFIG.IOPorts {2} \
-CONFIG.IOWidth {64} \
-CONFIG.PortWidth {32} \
+CONFIG.IOWidth {34} \
+CONFIG.PortWidth {17} \
  ] $HostMot2_ip_wrap_0
 
   # Create instance: hm2_axilite_int_0, and set properties
@@ -124,7 +124,7 @@ CONFIG.C_S_AXI_ADDR_WIDTH {16} \
   # Create instance: hm2_io_ts_0, and set properties
   set hm2_io_ts_0 [ create_bd_cell -type ip -vlnv machinekit.io:user:hm2_io_ts:1 hm2_io_ts_0 ]
   set_property -dict [ list \
-CONFIG.WIDTH {64} \
+CONFIG.WIDTH {34} \
  ] $hm2_io_ts_0
 
   # Create instance: processing_system7_0, and set properties
@@ -372,7 +372,7 @@ CONFIG.NUM_PORTS {1} \
   connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins HostMot2_ip_wrap_0/ibus] [get_bd_pins hm2_axilite_int_0/IBUS]
   connect_bd_net -net hm2_axilite_int_0_READSTB [get_bd_pins HostMot2_ip_wrap_0/readstb] [get_bd_pins hm2_axilite_int_0/READSTB]
   connect_bd_net -net hm2_axilite_int_0_WRITESTB [get_bd_pins HostMot2_ip_wrap_0/writestb] [get_bd_pins hm2_axilite_int_0/WRITESTB]
-  
+  connect_bd_net -net hm2_io_ts_0_i_bits [get_bd_pins HostMot2_ip_wrap_0/inbits] [get_bd_pins hm2_io_ts_0/i_bits]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins HostMot2_ip_wrap_0/clklow] [get_bd_pins HostMot2_ip_wrap_0/clkmed] [get_bd_pins hm2_axilite_int_0/S_AXI_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/M01_ACLK] [get_bd_pins processing_system7_0_axi_periph/M02_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins HostMot2_ip_wrap_0/clkhigh] [get_bd_pins processing_system7_0/FCLK_CLK1]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
