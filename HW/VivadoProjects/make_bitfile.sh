@@ -80,7 +80,7 @@ python genfwid.py "$FWID_NAME" > "$PRJ_DIR_CREATED/firmware_id.mif"
 cd ../VivadoProjects
 
 # Run the tcl script to build the project and generate the bitfile
-/opt/Xilinx/Vivado/2017.2/bin/vivado -mode batch -source "$PRJ_FILE"
+/opt/Xilinx/Vivado/2017.2/bin/vivado -mode batch -notrace -source "$PRJ_FILE"
 
 # Update the bif file for bootgen
 # component file1 needs the pin file path
