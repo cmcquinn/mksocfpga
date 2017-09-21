@@ -1,6 +1,9 @@
 -- Copyright (C) 2016, Devin Hughes, JD Squared
 -- http://www.jd2.com
 --
+-- Modified to work with Vivado 2017 by Cameron McQuinn
+-- http://github.com/cmcquinn
+--
 -- This program is is licensed under a disjunctive dual license giving you
 -- the choice of one of the two following sets of free software/open source
 -- licensing terms:
@@ -72,7 +75,8 @@ use STD.textio.all;
 entity firmware_id is
   generic(
     ADDR_WIDTH : integer := 9;
-    DATA_WIDTH : integer := 32
+    DATA_WIDTH : integer := 32;
+    FILE_ARRAY_SIZE : integer := 59
   );
   port (
     clk     : in  std_logic;
@@ -85,6 +89,7 @@ end firmware_id;
 architecture beh of firmware_id is
   attribute rom_style : string;
   type mem_type is array ( (2**ADDR_WIDTH) - 1 downto 0 ) of std_logic_vector(DATA_WIDTH - 1 downto 0);
+  type mif_type is array (0 to FILE_ARRAY_SIZE - 1) of string;
   signal rom_data : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal rom_addr : std_logic_vector(ADDR_WIDTH - 1 downto 0);
 
@@ -215,8 +220,7 @@ architecture beh of firmware_id is
     return res;
   end function;
   
-  impure function InitFromFile (fname : string) return mem_type is
-    file infile : text open read_mode is fname;
+  impure function InitFromArray (mif_data : mif_type) return mem_type is
     variable curLine : line;
     variable lineContent : string (1 to 50);
     variable linenows : string (lineContent'range);
@@ -318,6 +322,68 @@ architecture beh of firmware_id is
     end loop;
     return romd;
   end function;
+
+  constant mif_contents : mif_type :=(
+    ("%")
+    ("config argument: FWID_REPLICOOKIE")
+    ("")
+    ("size of encoded message: 86 0x56")
+    ("text format representation:")
+    ("---")
+    ("build_sha: ""cf94098""")
+    ("fpga_part_number: ""7z020""")
+    ("connector {")
+    ("  name: ""JA.GPIO1""")
+    ("  pins: 17")
+    ("}")
+    ("connector {")
+    ("  name: ""JA.GPIO2""")
+    ("  pins: 17")
+    ("}")
+    ("num_leds: 1")
+    ("board_name: ""Replicookie""")
+    ("comment: ""$BUILD_URL unset""")
+    ("---")
+    ("")
+    ("wire format length=86 0a07636639343039381205377a3032301a0f0a084a412e4750494f3115110000001a0f0a084a412e4750494f32151100000025010000002a0b5265706c69636f6f6b69653210244255494c445f55524c20756e736574")
+    ("")
+    ("size of MIF struct including cookie and length field: 94")
+    ("%")
+    ("")
+    ("")
+    ("WIDTH=32;")
+    ("DEPTH=24;")
+    ("")
+    ("ADDRESS_RADIX=HEX;")
+    ("DATA_RADIX=HEX;")
+    ("")
+    ("CONTENT BEGIN")
+    ("  0000 : feedbabe;")
+    ("  0001 : 00000056;")
+    ("  0002 : 6663070a;")
+    ("  0003 : 39303439;")
+    ("  0004 : 37051238;")
+    ("  0005 : 3032307a;")
+    ("  0006 : 080a0f1a;")
+    ("  0007 : 472e414a;")
+    ("  0008 : 314f4950;")
+    ("  0009 : 00001115;")
+    ("  000a : 0a0f1a00;")
+    ("  000b : 2e414a08;")
+    ("  000c : 4f495047;")
+    ("  000d : 00111532;")
+    ("  000e : 01250000;")
+    ("  000f : 2a000000;")
+    ("  0010 : 7065520b;")
+    ("  0011 : 6f63696c;")
+    ("  0012 : 65696b6f;")
+    ("  0013 : 42241032;")
+    ("  0014 : 444c4955;")
+    ("  0015 : 4c52555f;")
+    ("  0016 : 736e7520;")
+    ("  0017 : 00007465;")
+    ("END;")
+  )
 
   signal buf : mem_type := InitFromFile("firmware_id.mif");
   attribute rom_style of buf : signal is "block";
