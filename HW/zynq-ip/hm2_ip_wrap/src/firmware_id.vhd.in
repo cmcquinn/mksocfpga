@@ -1,9 +1,6 @@
 -- Copyright (C) 2016, Devin Hughes, JD Squared
 -- http://www.jd2.com
 --
--- Modified to work with Vivado 2017 by Cameron McQuinn
--- http://github.com/cmcquinn
---
 -- This program is is licensed under a disjunctive dual license giving you
 -- the choice of one of the two following sets of free software/open source
 -- licensing terms:
@@ -75,8 +72,7 @@ use STD.textio.all;
 entity firmware_id is
   generic(
     ADDR_WIDTH : integer := 9;
-    DATA_WIDTH : integer := 32;
-    FILE_ARRAY_SIZE : integer := %MIF_NUM_LINES%
+    DATA_WIDTH : integer := 32
   );
   port (
     clk     : in  std_logic;
@@ -89,7 +85,6 @@ end firmware_id;
 architecture beh of firmware_id is
   attribute rom_style : string;
   type mem_type is array ( (2**ADDR_WIDTH) - 1 downto 0 ) of std_logic_vector(DATA_WIDTH - 1 downto 0);
-  type mif_type is array (0 to FILE_ARRAY_SIZE - 1) of string;
   signal rom_data : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal rom_addr : std_logic_vector(ADDR_WIDTH - 1 downto 0);
 
@@ -219,28 +214,10 @@ architecture beh of firmware_id is
     end loop;
     return res;
   end function;
-
-  -- This is a replacement of the read function from textio that accepts strings
-  -- procedure READ (L: inout LINE; VALUE: out CHARACTER; GOOD: out BOOLEAN);
-  procedure read_string (
-    s : inout string;
-		c : out character;
-		good : out boolean) is
-  begin
-    c := s(1);
-    
-    if (s'range != 1) then
-      -- remove the character that was read from the string
-      s := s(2 to s'range);
-      good := true;
-    else
-      s := s(1)
-      good := false;
-    end if
-  end read_string;
   
-  impure function InitFromArray (mif_data : mif_type) return mem_type is
-    variable curLine : string;
+  impure function InitFromFile (fname : string) return mem_type is
+    file infile : text open read_mode is fname;
+    variable curLine : line;
     variable lineContent : string (1 to 50);
     variable linenows : string (lineContent'range);
     variable tmpint : integer;
@@ -256,26 +233,23 @@ architecture beh of firmware_id is
     -- Initialize everything to zero's. Then overwrite from the mif
     variable romd : mem_type; -- := (others => (others => '0'));
   begin    
-    for i in mif_data'range loop
+    while not endfile(infile) loop
       -- Read the new line
-      curLine := mif_data(i)
+      readline(infile, curLine);
       sing_com := false;
       
       -- When this is in procedure, Vivado won't synthesize...
       -- Read an entire line into a string
+      for i in lineContent'range loop
+        lineContent(i) := ' ';
+      end loop;   
 
-      -- clear lineContent
-      for j in lineContent'range loop
-        lineContent(j) := ' ';
-      end loop;
-
-      -- Process one character at a time
-      for j in lineContent'range loop
-        read_string(curLine, c, eof_n);
-        if(jnmulti = false) then
+      for i in lineContent'range loop
+        read(curLine, c, eof_n);
+        if(inmulti = false) then
             if (c = '-') then
                 if(sing_com = true) then
-                    lineContent(j - 1) := ' ';
+                    lineContent(i - 1) := ' ';
                     exit;
                 else
                     sing_com := true;
@@ -292,7 +266,7 @@ architecture beh of firmware_id is
                 exit;
             end if;
             
-            lineContent(j) := c;
+            lineContent(i) := c;
         else
             if( c = '%') then
                 inmulti := false;
@@ -345,11 +319,7 @@ architecture beh of firmware_id is
     return romd;
   end function;
 
-  constant mif_contents : mif_type :=(
-    %MIF_CONTENTS%
-  )
-
-  signal buf : mem_type := InitFromArray(mif_contents);
+  signal buf : mem_type := InitFromFile(%MIF_PATH);
   attribute rom_style of buf : signal is "block";
 begin
   dout <= rom_data when (re = '1') else (others=>'Z');
