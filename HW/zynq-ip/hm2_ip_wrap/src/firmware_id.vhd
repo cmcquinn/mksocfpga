@@ -227,15 +227,15 @@ architecture beh of firmware_id is
 		c : out character;
 		good : out boolean) is
   begin
-    c := s(1);
+    c <= s(1);
     
-    if (s'range != 1) then
+    if not s'range = 1) then
       -- remove the character that was read from the string
-      s := s(2 to s'range);
-      good := true;
+      s : s(2 to s'range);
+      good <= true;
     else
-      s := s(1)
-      good := false;
+      s <= s(1)
+      good <= false;
     end if
   end read_string;
   
