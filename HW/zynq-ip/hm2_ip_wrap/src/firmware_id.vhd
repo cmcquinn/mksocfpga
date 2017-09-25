@@ -319,7 +319,7 @@ architecture beh of firmware_id is
     return romd;
   end function;
 
-  signal buf : mem_type := InitFromFile("/home/cameron/Code/mksocfpga/HW/VivadoProjects/snickerdoodle/replicookie/replicookie_7z020_created/firmware_id.mif");
+  signal buf : mem_type := InitFromFile("firmware_id.mif");
   attribute rom_style of buf : signal is "block";
 begin
   dout <= rom_data when (re = '1') else (others=>'Z');
