@@ -210,6 +210,10 @@ puts "INFO: Project created: $prj_name"
 reset_run synth_1
 reset_run impl_1
 
+# set IP to use global synthesis instead of default out-of-context
+set_property synth_checkpoint_mode None [get_files $proj_dir/src/soc_system/soc_system.bd]
+generate_target all [get_files $proj_dir/src/soc_system/soc_system.bd]
+
 # Launch the runs
 launch_runs impl_1
 wait_on_run impl_1
