@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 -- Copyright (C) 2007, Peter C. Wallace, Mesa Electronics
 -- http://www.mesanet.com
 --
--- Ported to Replicookie Snickerdoodle baseboard: 
+-- Ported to Snickerdoodle 3D printer prototype board: 
 -- Copyright (C) 2017, Cameron McQuinn
 -- http://www.github.com/cmcquinn
 --
@@ -79,14 +79,14 @@ use work.IDROMConst.all;
 -- IDROMConst.vhd, and tells HM2 information about each module such as its address,
 -- pinout, and number of registers.
 
-package PIN_REPLICOOKIE is
+package PIN_PROTOTYPE is
 	constant ModuleID : ModuleIDType :=(
 	--	Module			Version No.	Clock			NumInstances	BaseAddr					NumRegisters			Strides		BitMask
 		(WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
 		(IOPortTag,		x"00",		ClockLowTag,	x"02",			PortAddr&PadT,				IOPortNumRegs,			x"00",		IOPortMPBitMask),
-		(StepGenTag,	x"02",		ClockLowTag,	x"05",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
+		(StepGenTag,	x"02",		ClockLowTag,	x"01",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
 		(FWIDTag,       x"00",  	ClockLowTag,    x"01",  		FWIDAddr&PadT,        		FWIDNumRegs,            x"00",  	FWIDMPBitMask),
-		(PWMTag,		x"00",		ClockHighTag,	x"05",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
+		(PWMTag,		x"00",		ClockHighTag,	x"02",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
 		(LEDTag,		x"00",		ClockLowTag,	x"01",			LEDAddr&PadT,				LEDNumRegs,				x"00",		LEDMPBitMask),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
@@ -124,58 +124,27 @@ package PIN_REPLICOOKIE is
 
 	constant PinDesc : PinDescType :=(
     -- 	Base func	sec unit sec func 	 sec pin			-- hostmot2 Header	Pin Dir	Func
-	--	X axis
-		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 00	JA1		05	out	X Dir
-		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 01	JA1		06	out	X Step
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 02	JA1		07  out	GPIO - X enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 03	JA1		08  in	GPIO - X Home/limit
-
-	--	Y axis
-		IOPortTag & x"01" & StepGenTag & StepGenDirPin, 	-- I/O 04	JA1		11	out	Y Dir
-		IOPortTag & x"01" & StepGenTag & StepGenStepPin,	-- I/O 05	JA1		12	out	Y Step
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 06	JA1		13  out	GPIO - Y enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 07	JA1		14  in	GPIO - Y Home/limit
-
-	--	Z axis
-		IOPortTag & x"02" & StepGenTag & StepGenDirPin,		-- I/O 08	JA1		17 	out	Z Dir
-		IOPortTag & x"02" & StepGenTag & StepGenStepPin,	-- I/O 09	JA1		18	out	Z Step
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 10	JA1		19	out	GPIO - Z enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 11	JA1		20	in	GPIO - Z Home/limit
-
-	--	Extruder A
-		IOPortTag & x"03" & StepGenTag & StepGenDirPin,		-- I/O 12	JA1		23	out	A Dir
-		IOPortTag & x"03" & StepGenTag & StepGenStepPin,	-- I/O 13	JA1		24  out	A Step
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 14	JA1		25	out	GPIO - Extruder A enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 15	JA1		04 	in	GPIO - Extruder A filament loaded
-		IOPortTag & x"00" & PWMTag & PWMAOutPin,			-- I/O 16	JA1		35  out	PWM - Extruder A heater
-		IOPortTag & x"01" & PWMTag & PWMAOutPin,			-- I/O 17	JA1		36	out	PWM - Extruder A fan control
-
-	--	Extruder B
-		IOPortTag & x"04" & StepGenTag & StepGenDirPin,		-- I/O 18	JA1		29  out	B Dir
-		IOPortTag & x"04" & StepGenTag & StepGenStepPin,   	-- I/O 19	JA1		30  out	B Step
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 20	JA1		31	out	GPIO - Extruder B enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 21	JA2		04	in	GPIO - Extruder B filament loaded
-        IOPortTag & x"02" & PWMTag & PWMAOutPin,			-- I/O 22	JA1		37	out	PWM - Extruder B heater
-		IOPortTag & x"03" & PWMTag & PWMAOutPin, 			-- I/O 23	JA1		38	out	PWM - Extruder B fan control
-		
-    -- 	Base func  sec unit sec func	sec pin				-- hostmot2 Header	Pin Dir	Func
-		
-		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 24	JA2		05	out	PWM - bed heater
-		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 25	JA2		6	io	GPIO
-        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 26	JA2		7	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 27	JA2		8	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 28	JA2		11	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 29	JA2		12	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 30	JA2		13	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 31	JA2		14	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 32	JA2		17	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 33	JA2		18	io	GPIO
-		
+	--	Prototyping board
+		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 00	JA1		05	out	Dir
+		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 01	JA1		06	out	Step
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 02	JA1		07  out	GPIO - enable
+		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 03	JA1		08  in	GPIO - Home/limit		
+		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 04	JA2		05	out	PWM
+		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 05	JA2		05	out	PWM
+		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 06	JA2		6	in	GPIO - ESTOP
+        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 07	JA2		7	io	GPIO -
+		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 08	JA2		8	io	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 09	JA2		11	io	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 10	JA2		12	io	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 11	JA2		13	io	GPIO
 
 		-- Fill remaining 144 pins
         emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
 		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
+		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 
+		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 
@@ -190,4 +159,4 @@ package PIN_REPLICOOKIE is
 		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin);
 
-end package PIN_REPLICOOKIE;
+end package PIN_PROTOTYPE;

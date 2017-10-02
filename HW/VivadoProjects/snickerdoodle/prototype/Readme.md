@@ -1,0 +1,3 @@
+# Prototype
+
+This is a hostmot2 setup to be used with a small 3D printing development board that will plug into the 0.1" headers on the breakyBreaky. This board will be a proof-of-concept meant to test the circuitry, software, and programmable logic components that will go into the final custom snickerdoodle baseboard for 3D printers (see the replicookie configuration). This configuration has 1 stepgen, some PWM, some GPIO for attaching switches, an ADC channel, and an LED. It uses the Zynq's build-in SPI peripheral for communicating with a Trinamic stepper motor driver.
