@@ -129,8 +129,8 @@ package PIN_PROTOTYPE is
 		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 01	JA1		06	out	Step
 		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 02	JA1		07  out	GPIO - enable
 		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 03	JA1		08  in	GPIO - Home/limit		
-		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 04	JA2		05	out	PWM
-		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 05	JA2		05	out	PWM
+		IOPortTag & x"00" & PWMTag & PWMAOutPin,    		-- I/O 04	JA2		05	out	PWM
+		IOPortTag & x"01" & PWMTag & PWMAOutPin,    		-- I/O 05	JA2		05	out	PWM
 		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 06	JA2		6	in	GPIO - ESTOP
         IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 07	JA2		7	io	GPIO -
 		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 08	JA2		8	io	GPIO
