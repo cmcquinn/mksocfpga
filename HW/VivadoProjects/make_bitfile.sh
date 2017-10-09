@@ -89,4 +89,4 @@ sed "s|%BIT_FILE%|$PRJ_DIR_CREATED/$BIT_FILE|" \
     bif/all.bif
 
 # Now use bootgen so we can program it from linux
-/opt/Xilinx/SDK/2017.2/bin/bootgen -image bif/all.bif -w -process_bitstream bin
+/opt/Xilinx/SDK/2017.2/bin/bootgen -log trace -image bif/all.bif -w -process_bitstream bin

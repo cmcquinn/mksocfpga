@@ -7,3 +7,4 @@ all.bif
 *.bit.bin
 firmware_id.mif
 .Xil
+*log.txt
