@@ -149,6 +149,7 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set IOBits [ create_bd_port -dir IO -from 33 -to 0 IOBits ]
+  set RATES [ create_bd_port -dir O -from 4 -to 0 RATES ]
 
   # Create instance: HostMot2_ip_wrap_0, and set properties
   set HostMot2_ip_wrap_0 [ create_bd_cell -type ip -vlnv machinekit.io:user:HostMot2_ip_wrap:1.0 HostMot2_ip_wrap_0 ]
@@ -482,7 +483,7 @@ CONFIG.PCW_SDIO_PERIPHERAL_DIVISOR0 {20} \
 CONFIG.PCW_SDIO_PERIPHERAL_FREQMHZ {100} \
 CONFIG.PCW_SDIO_PERIPHERAL_VALID {1} \
 CONFIG.PCW_SPI1_GRP_SS0_ENABLE {1} \
-CONFIG.PCW_SPI1_GRP_SS0_IO {ERR: EMIO  | MIO 25} \
+CONFIG.PCW_SPI1_GRP_SS0_IO {ERR: ERR: EMIO  | MIO 25  | MIO 25} \
 CONFIG.PCW_SPI1_PERIPHERAL_ENABLE {1} \
 CONFIG.PCW_SPI1_SPI1_IO {MIO 22 .. 27} \
 CONFIG.PCW_SPI_PERIPHERAL_DIVISOR0 {12} \
@@ -545,17 +546,9 @@ CONFIG.NUM_MI {3} \
   # Create instance: rst_processing_system7_0_100M, and set properties
   set rst_processing_system7_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_processing_system7_0_100M ]
 
-  # Create instance: util_vector_logic_0, and set properties
-  set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0 ]
-  set_property -dict [ list \
-CONFIG.C_OPERATION {not} \
-CONFIG.C_SIZE {1} \
- ] $util_vector_logic_0
-
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
-CONFIG.IN0_WIDTH {1} \
 CONFIG.NUM_PORTS {1} \
  ] $xlconcat_0
 
@@ -566,11 +559,12 @@ CONFIG.NUM_PORTS {1} \
   connect_bd_intf_net -intf_net processing_system7_0_axi_periph_M00_AXI [get_bd_intf_pins hm2_axilite_int_0/S_AXI] [get_bd_intf_pins processing_system7_0_axi_periph/M00_AXI]
 
   # Create port connections
-  connect_bd_net -net HostMot2_ip_wrap_0_interrupt [get_bd_pins HostMot2_ip_wrap_0/interrupt] [get_bd_pins util_vector_logic_0/Op1]
+  connect_bd_net -net HostMot2_ip_wrap_0_interrupt [get_bd_pins HostMot2_ip_wrap_0/interrupt] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net HostMot2_ip_wrap_0_ioddrbits [get_bd_pins HostMot2_ip_wrap_0/ioddrbits] [get_bd_pins hm2_io_ts_0/ddr_bits]
   connect_bd_net -net HostMot2_ip_wrap_0_ioodrbits [get_bd_pins HostMot2_ip_wrap_0/ioodrbits] [get_bd_pins hm2_io_ts_0/odr_bits]
   connect_bd_net -net HostMot2_ip_wrap_0_obus [get_bd_pins HostMot2_ip_wrap_0/obus] [get_bd_pins hm2_axilite_int_0/OBUS]
   connect_bd_net -net HostMot2_ip_wrap_0_outbits [get_bd_pins HostMot2_ip_wrap_0/outbits] [get_bd_pins hm2_io_ts_0/o_bits]
+  connect_bd_net -net HostMot2_ip_wrap_0_rates [get_bd_ports RATES] [get_bd_pins HostMot2_ip_wrap_0/rates]
   connect_bd_net -net Net [get_bd_ports IOBits] [get_bd_pins hm2_io_ts_0/iobits]
   connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins HostMot2_ip_wrap_0/addr] [get_bd_pins hm2_axilite_int_0/ADDR]
   connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins HostMot2_ip_wrap_0/ibus] [get_bd_pins hm2_axilite_int_0/IBUS]
@@ -582,7 +576,6 @@ CONFIG.NUM_PORTS {1} \
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
   connect_bd_net -net rst_processing_system7_0_100M_interconnect_aresetn [get_bd_pins processing_system7_0_axi_periph/ARESETN] [get_bd_pins rst_processing_system7_0_100M/interconnect_aresetn]
   connect_bd_net -net rst_processing_system7_0_100M_peripheral_aresetn [get_bd_pins hm2_axilite_int_0/S_AXI_ARESETN] [get_bd_pins processing_system7_0_axi_periph/M00_ARESETN] [get_bd_pins processing_system7_0_axi_periph/M01_ARESETN] [get_bd_pins processing_system7_0_axi_periph/M02_ARESETN] [get_bd_pins processing_system7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_processing_system7_0_100M/peripheral_aresetn]
-  connect_bd_net -net util_vector_logic_0_Res [get_bd_pins util_vector_logic_0/Res] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins xlconcat_0/dout]
 
   # Create address segments

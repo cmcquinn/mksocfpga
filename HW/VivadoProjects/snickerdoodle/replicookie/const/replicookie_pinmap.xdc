@@ -1,3 +1,4 @@
+### replicookie_pinmap.xdc - generated from io_allocation_hm2.csv
 ### JA1.5 (X Dir)
 set_property        PACKAGE_PIN    E18       [get_ports {IOBits[0]}]
 set_property        IOSTANDARD     LVCMOS33  [get_ports {IOBits[0]}]
@@ -133,4 +134,24 @@ set_property        IOSTANDARD     LVCMOS33  [get_ports {IOBits[32]}]
 ### JA2.23 (GPIO)
 set_property        PACKAGE_PIN    L19       [get_ports {IOBits[33]}]
 set_property        IOSTANDARD     LVCMOS33  [get_ports {IOBits[33]}]
+
+### JA2.24
+set_property        PACKAGE_PIN    J19       [get_ports {RATES[4]}]
+set_property        IOSTANDARD     LVCMOS33  [get_ports {RATES[4]}]
+
+### JA2.25
+set_property        PACKAGE_PIN    L20       [get_ports {RATES[3]}]
+set_property        IOSTANDARD     LVCMOS33  [get_ports {RATES[3]}]
+
+### JA2.26
+set_property        PACKAGE_PIN    K19       [get_ports {RATES[2]}]
+set_property        IOSTANDARD     LVCMOS33  [get_ports {RATES[2]}]
+
+### JA2.29
+set_property        PACKAGE_PIN    M17       [get_ports {RATES[1]}]
+set_property        IOSTANDARD     LVCMOS33  [get_ports {RATES[1]}]
+
+### JA2.30
+set_property        PACKAGE_PIN    M20       [get_ports {RATES[0]}]
+set_property        IOSTANDARD     LVCMOS33  [get_ports {RATES[0]}]
 
