@@ -1,0 +1,54 @@
+,,,
+,X axis,,
+,JA1,5,X Dir
+,JA1,6,X Step
+,JA1,7,GPIO - X enable
+,JA1,8,CS X
+,JA2,6,GPIO - X Home/limit
+,,,
+,Y axis,,
+,JA1,11,Y Dir
+,JA1,12,Y Step
+,JA1,13,GPIO - Y enable
+,JA1,14,CS Y
+,JA2,7,GPIO - Y Home/limit
+,,,
+,Z axis,,
+,JA1,17,Z Dir
+,JA1,18,Z Step
+,JA1,19,GPIO - Z enable
+,JA1,20,CS Z
+,JA2,8,GPIO - Z Home/limit
+,,,
+,Extruder A,,
+,JA1,23,A Dir
+,JA1,24,A Step
+,JA1,25,GPIO - Extruder A enable
+,JA1,26,CS A
+,JA1,4,GPIO - Extruder A filament loaded
+,JA1,35,PWM - Extruder A heater
+,JA1,36,PWM - Extruder A fan control
+,,,
+,,,
+,Extruder B,,
+,JA1,29,B Dir
+,JA1,30,B Step
+,JA1,31,GPIO - Extruder B enable
+,JA1,32,CS B
+,JA2,4,GPIO - Extruder B filament loaded
+,JA1,37,PWM - Extruder B heater
+,JA1,38,PWM - Extruder B fan control
+,,,
+,Other,,
+,JA2,5,PWM - bed heater
+,JA2,6,GPIO - relay control
+,JA2,7,GPIO - relay control
+,JA2,8,GPIO - ESTOP
+,JA2,11,GPIO - Power on/off
+,JA2,12,GPIO
+,JA2,13,GPIO
+,JA2,14,GPIO
+,JA2,17,GPIO
+,JA2,18,GPIO
+,JA2,19,GPIO
+,JA2,20,GPIO
