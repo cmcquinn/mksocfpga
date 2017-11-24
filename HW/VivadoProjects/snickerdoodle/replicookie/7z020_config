@@ -37,5 +37,5 @@ FWID_NAME=FWID_REPLICOOKIE
 ############################################################################
 
 # The name of the board to compile into the IP. Matches board name in hal files
-BOARD_NAME_HIGH_HEX=4243444A     #JDCB
-BOARD_NAME_LOW_HEX=4332444A      #JD2M
+BOARD_NAME_HIGH_HEX=4C504552     #REPL
+BOARD_NAME_LOW_HEX=45494B43      #CKIE
