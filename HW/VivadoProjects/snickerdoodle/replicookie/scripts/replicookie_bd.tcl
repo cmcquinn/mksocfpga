@@ -148,6 +148,14 @@ proc create_root_design { parentCell } {
   set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO ]
 
   # Create ports
+  set AutoLevel_n [ create_bd_port -dir I AutoLevel_n ]
+  set AutoLevel_p [ create_bd_port -dir I AutoLevel_p ]
+  set ExtruderA_n [ create_bd_port -dir I ExtruderA_n ]
+  set ExtruderA_p [ create_bd_port -dir I ExtruderA_p ]
+  set ExtruderB_n [ create_bd_port -dir I ExtruderB_n ]
+  set ExtruderB_p [ create_bd_port -dir I ExtruderB_p ]
+  set HBP_n [ create_bd_port -dir I HBP_n ]
+  set HBP_p [ create_bd_port -dir I HBP_p ]
   set IOBits [ create_bd_port -dir IO -from 33 -to 0 IOBits ]
   set RATES [ create_bd_port -dir O -from 4 -to 0 RATES ]
 
@@ -171,6 +179,67 @@ CONFIG.C_S_AXI_ADDR_WIDTH {16} \
   set_property -dict [ list \
 CONFIG.WIDTH {34} \
  ] $hm2_io_ts_0
+
+  # Create instance: ila_0, and set properties
+  set ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_0 ]
+  set_property -dict [ list \
+CONFIG.ALL_PROBE_SAME_MU_CNT {2} \
+CONFIG.C_ADV_TRIGGER {true} \
+CONFIG.C_ENABLE_ILA_AXI_MON {false} \
+CONFIG.C_EN_STRG_QUAL {1} \
+CONFIG.C_MONITOR_TYPE {Native} \
+CONFIG.C_NUM_OF_PROBES {2} \
+CONFIG.C_PROBE0_MU_CNT {2} \
+CONFIG.C_PROBE0_TYPE {1} \
+CONFIG.C_PROBE0_WIDTH {34} \
+CONFIG.C_PROBE10_MU_CNT {2} \
+CONFIG.C_PROBE11_MU_CNT {2} \
+CONFIG.C_PROBE12_MU_CNT {2} \
+CONFIG.C_PROBE13_MU_CNT {2} \
+CONFIG.C_PROBE14_MU_CNT {2} \
+CONFIG.C_PROBE15_MU_CNT {2} \
+CONFIG.C_PROBE16_MU_CNT {2} \
+CONFIG.C_PROBE17_MU_CNT {2} \
+CONFIG.C_PROBE18_MU_CNT {2} \
+CONFIG.C_PROBE19_MU_CNT {2} \
+CONFIG.C_PROBE1_MU_CNT {2} \
+CONFIG.C_PROBE1_TYPE {1} \
+CONFIG.C_PROBE1_WIDTH {5} \
+CONFIG.C_PROBE20_MU_CNT {2} \
+CONFIG.C_PROBE21_MU_CNT {2} \
+CONFIG.C_PROBE22_MU_CNT {2} \
+CONFIG.C_PROBE23_MU_CNT {2} \
+CONFIG.C_PROBE24_MU_CNT {2} \
+CONFIG.C_PROBE25_MU_CNT {2} \
+CONFIG.C_PROBE26_MU_CNT {2} \
+CONFIG.C_PROBE27_MU_CNT {2} \
+CONFIG.C_PROBE28_MU_CNT {2} \
+CONFIG.C_PROBE29_MU_CNT {2} \
+CONFIG.C_PROBE2_MU_CNT {2} \
+CONFIG.C_PROBE30_MU_CNT {2} \
+CONFIG.C_PROBE31_MU_CNT {2} \
+CONFIG.C_PROBE32_MU_CNT {2} \
+CONFIG.C_PROBE33_MU_CNT {2} \
+CONFIG.C_PROBE34_MU_CNT {2} \
+CONFIG.C_PROBE35_MU_CNT {2} \
+CONFIG.C_PROBE36_MU_CNT {2} \
+CONFIG.C_PROBE37_MU_CNT {2} \
+CONFIG.C_PROBE38_MU_CNT {2} \
+CONFIG.C_PROBE39_MU_CNT {2} \
+CONFIG.C_PROBE3_MU_CNT {2} \
+CONFIG.C_PROBE40_MU_CNT {2} \
+CONFIG.C_PROBE41_MU_CNT {2} \
+CONFIG.C_PROBE42_MU_CNT {2} \
+CONFIG.C_PROBE43_MU_CNT {2} \
+CONFIG.C_PROBE4_MU_CNT {2} \
+CONFIG.C_PROBE5_MU_CNT {2} \
+CONFIG.C_PROBE6_MU_CNT {2} \
+CONFIG.C_PROBE7_MU_CNT {2} \
+CONFIG.C_PROBE8_MU_CNT {2} \
+CONFIG.C_PROBE9_MU_CNT {2} \
+CONFIG.C_TRIGIN_EN {false} \
+CONFIG.C_TRIGOUT_EN {false} \
+ ] $ila_0
 
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
@@ -546,6 +615,22 @@ CONFIG.NUM_MI {3} \
   # Create instance: rst_processing_system7_0_100M, and set properties
   set rst_processing_system7_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_processing_system7_0_100M ]
 
+  # Create instance: xadc_wiz_0, and set properties
+  set xadc_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xadc_wiz:3.3 xadc_wiz_0 ]
+  set_property -dict [ list \
+CONFIG.CHANNEL_ENABLE_VAUXP12_VAUXN12 {true} \
+CONFIG.CHANNEL_ENABLE_VAUXP13_VAUXN13 {true} \
+CONFIG.CHANNEL_ENABLE_VAUXP1_VAUXN1 {true} \
+CONFIG.CHANNEL_ENABLE_VAUXP8_VAUXN8 {true} \
+CONFIG.CHANNEL_ENABLE_VP_VN {false} \
+CONFIG.ENABLE_RESET {false} \
+CONFIG.EXTERNAL_MUX_CHANNEL {VP_VN} \
+CONFIG.INTERFACE_SELECTION {ENABLE_DRP} \
+CONFIG.SEQUENCER_MODE {Continuous} \
+CONFIG.SINGLE_CHANNEL_SELECTION {TEMPERATURE} \
+CONFIG.XADC_STARUP_SELECTION {channel_sequencer} \
+ ] $xadc_wiz_0
+
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
@@ -559,19 +644,27 @@ CONFIG.NUM_PORTS {1} \
   connect_bd_intf_net -intf_net processing_system7_0_axi_periph_M00_AXI [get_bd_intf_pins hm2_axilite_int_0/S_AXI] [get_bd_intf_pins processing_system7_0_axi_periph/M00_AXI]
 
   # Create port connections
+  connect_bd_net -net AutoLevel_n_1 [get_bd_ports AutoLevel_n] [get_bd_pins xadc_wiz_0/vauxn1]
+  connect_bd_net -net AutoLevel_p_1 [get_bd_ports AutoLevel_p] [get_bd_pins xadc_wiz_0/vauxp1]
+  connect_bd_net -net ExtruderA_n_1 [get_bd_ports ExtruderA_n] [get_bd_pins xadc_wiz_0/vauxn8]
+  connect_bd_net -net ExtruderA_p_1 [get_bd_ports ExtruderA_p] [get_bd_pins xadc_wiz_0/vauxp8]
+  connect_bd_net -net ExtruderB_n_1 [get_bd_ports ExtruderB_n] [get_bd_pins xadc_wiz_0/vauxn12]
+  connect_bd_net -net ExtruderB_p_1 [get_bd_ports ExtruderB_p] [get_bd_pins xadc_wiz_0/vauxp12]
+  connect_bd_net -net HBP_n_1 [get_bd_ports HBP_n] [get_bd_pins xadc_wiz_0/vauxn13]
+  connect_bd_net -net HBP_p_1 [get_bd_ports HBP_p] [get_bd_pins xadc_wiz_0/vauxp13]
   connect_bd_net -net HostMot2_ip_wrap_0_interrupt [get_bd_pins HostMot2_ip_wrap_0/interrupt] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net HostMot2_ip_wrap_0_ioddrbits [get_bd_pins HostMot2_ip_wrap_0/ioddrbits] [get_bd_pins hm2_io_ts_0/ddr_bits]
   connect_bd_net -net HostMot2_ip_wrap_0_ioodrbits [get_bd_pins HostMot2_ip_wrap_0/ioodrbits] [get_bd_pins hm2_io_ts_0/odr_bits]
   connect_bd_net -net HostMot2_ip_wrap_0_obus [get_bd_pins HostMot2_ip_wrap_0/obus] [get_bd_pins hm2_axilite_int_0/OBUS]
-  connect_bd_net -net HostMot2_ip_wrap_0_outbits [get_bd_pins HostMot2_ip_wrap_0/outbits] [get_bd_pins hm2_io_ts_0/o_bits]
-  connect_bd_net -net HostMot2_ip_wrap_0_rates [get_bd_ports RATES] [get_bd_pins HostMot2_ip_wrap_0/rates]
+  connect_bd_net -net HostMot2_ip_wrap_0_outbits [get_bd_pins HostMot2_ip_wrap_0/outbits] [get_bd_pins hm2_io_ts_0/o_bits] [get_bd_pins ila_0/probe0]
+  connect_bd_net -net HostMot2_ip_wrap_0_rates [get_bd_ports RATES] [get_bd_pins HostMot2_ip_wrap_0/rates] [get_bd_pins ila_0/probe1]
   connect_bd_net -net Net [get_bd_ports IOBits] [get_bd_pins hm2_io_ts_0/iobits]
   connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins HostMot2_ip_wrap_0/addr] [get_bd_pins hm2_axilite_int_0/ADDR]
   connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins HostMot2_ip_wrap_0/ibus] [get_bd_pins hm2_axilite_int_0/IBUS]
   connect_bd_net -net hm2_axilite_int_0_READSTB [get_bd_pins HostMot2_ip_wrap_0/readstb] [get_bd_pins hm2_axilite_int_0/READSTB]
   connect_bd_net -net hm2_axilite_int_0_WRITESTB [get_bd_pins HostMot2_ip_wrap_0/writestb] [get_bd_pins hm2_axilite_int_0/WRITESTB]
   connect_bd_net -net hm2_io_ts_0_i_bits [get_bd_pins HostMot2_ip_wrap_0/inbits] [get_bd_pins hm2_io_ts_0/i_bits]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins HostMot2_ip_wrap_0/clklow] [get_bd_pins HostMot2_ip_wrap_0/clkmed] [get_bd_pins hm2_axilite_int_0/S_AXI_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/M01_ACLK] [get_bd_pins processing_system7_0_axi_periph/M02_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins HostMot2_ip_wrap_0/clklow] [get_bd_pins HostMot2_ip_wrap_0/clkmed] [get_bd_pins hm2_axilite_int_0/S_AXI_ACLK] [get_bd_pins ila_0/clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/M01_ACLK] [get_bd_pins processing_system7_0_axi_periph/M02_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk] [get_bd_pins xadc_wiz_0/dclk_in]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins HostMot2_ip_wrap_0/clkhigh] [get_bd_pins processing_system7_0/FCLK_CLK1]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
   connect_bd_net -net rst_processing_system7_0_100M_interconnect_aresetn [get_bd_pins processing_system7_0_axi_periph/ARESETN] [get_bd_pins rst_processing_system7_0_100M/interconnect_aresetn]
