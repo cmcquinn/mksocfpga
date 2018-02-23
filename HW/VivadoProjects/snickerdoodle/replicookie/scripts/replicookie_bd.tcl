@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2017.2
+set scripts_vivado_version 2017.4
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -552,22 +552,6 @@ CONFIG.NUM_MI {3} \
   # Create instance: rst_processing_system7_0_100M, and set properties
   set rst_processing_system7_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_processing_system7_0_100M ]
 
-  # Create instance: system_ila_0, and set properties
-  set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.0 system_ila_0 ]
-  set_property -dict [ list \
-CONFIG.C_MON_TYPE {NATIVE} \
-CONFIG.C_NUM_OF_PROBES {1} \
-CONFIG.C_PROBE0_TYPE {0} \
- ] $system_ila_0
-
-  # Create instance: system_ila_1, and set properties
-  set system_ila_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.0 system_ila_1 ]
-  set_property -dict [ list \
-CONFIG.C_MON_TYPE {NATIVE} \
-CONFIG.C_NUM_OF_PROBES {1} \
-CONFIG.C_PROBE0_TYPE {0} \
- ] $system_ila_1
-
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
@@ -585,21 +569,15 @@ CONFIG.NUM_PORTS {1} \
   connect_bd_net -net HostMot2_ip_wrap_0_ioddrbits [get_bd_pins HostMot2_ip_wrap_0/ioddrbits] [get_bd_pins hm2_io_ts_0/ddr_bits]
   connect_bd_net -net HostMot2_ip_wrap_0_ioodrbits [get_bd_pins HostMot2_ip_wrap_0/ioodrbits] [get_bd_pins hm2_io_ts_0/odr_bits]
   connect_bd_net -net HostMot2_ip_wrap_0_obus [get_bd_pins HostMot2_ip_wrap_0/obus] [get_bd_pins hm2_axilite_int_0/OBUS]
-  connect_bd_net -net HostMot2_ip_wrap_0_outbits [get_bd_pins HostMot2_ip_wrap_0/outbits] [get_bd_pins hm2_io_ts_0/o_bits] [get_bd_pins system_ila_0/probe0]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets HostMot2_ip_wrap_0_outbits]
-  connect_bd_net -net HostMot2_ip_wrap_0_rates [get_bd_ports RATES] [get_bd_pins HostMot2_ip_wrap_0/rates] [get_bd_pins system_ila_1/probe0]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets HostMot2_ip_wrap_0_rates]
+  connect_bd_net -net HostMot2_ip_wrap_0_outbits [get_bd_pins HostMot2_ip_wrap_0/outbits] [get_bd_pins hm2_io_ts_0/o_bits]
+  connect_bd_net -net HostMot2_ip_wrap_0_rates [get_bd_ports RATES] [get_bd_pins HostMot2_ip_wrap_0/rates]
   connect_bd_net -net Net [get_bd_ports IOBits] [get_bd_pins hm2_io_ts_0/iobits]
   connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins HostMot2_ip_wrap_0/addr] [get_bd_pins hm2_axilite_int_0/ADDR]
   connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins HostMot2_ip_wrap_0/ibus] [get_bd_pins hm2_axilite_int_0/IBUS]
   connect_bd_net -net hm2_axilite_int_0_READSTB [get_bd_pins HostMot2_ip_wrap_0/readstb] [get_bd_pins hm2_axilite_int_0/READSTB]
   connect_bd_net -net hm2_axilite_int_0_WRITESTB [get_bd_pins HostMot2_ip_wrap_0/writestb] [get_bd_pins hm2_axilite_int_0/WRITESTB]
   connect_bd_net -net hm2_io_ts_0_i_bits [get_bd_pins HostMot2_ip_wrap_0/inbits] [get_bd_pins hm2_io_ts_0/i_bits]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins HostMot2_ip_wrap_0/clklow] [get_bd_pins HostMot2_ip_wrap_0/clkmed] [get_bd_pins hm2_axilite_int_0/S_AXI_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/M01_ACLK] [get_bd_pins processing_system7_0_axi_periph/M02_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk] [get_bd_pins system_ila_0/clk] [get_bd_pins system_ila_1/clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins HostMot2_ip_wrap_0/clklow] [get_bd_pins HostMot2_ip_wrap_0/clkmed] [get_bd_pins hm2_axilite_int_0/S_AXI_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/M01_ACLK] [get_bd_pins processing_system7_0_axi_periph/M02_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins HostMot2_ip_wrap_0/clkhigh] [get_bd_pins processing_system7_0/FCLK_CLK1]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
   connect_bd_net -net rst_processing_system7_0_100M_interconnect_aresetn [get_bd_pins processing_system7_0_axi_periph/ARESETN] [get_bd_pins rst_processing_system7_0_100M/interconnect_aresetn]
@@ -624,6 +602,4 @@ HDL_ATTRIBUTE.DEBUG {true} \
 
 create_root_design ""
 
-
-common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
