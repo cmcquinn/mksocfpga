@@ -82,13 +82,13 @@ use work.IDROMConst.all;
 package PIN_REPLICOOKIE is
 	constant ModuleID : ModuleIDType :=(
 	--	Module			Version No.	Clock			NumInstances	BaseAddr					NumRegisters			Strides		BitMask
-		(WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
+        (WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
+        (HM2DPLLTag,	x"00",	    ClockLowTag,	x"01",	        HM2DPLLBaseRateAddr&PadT,	HM2DPLLNumRegs,		    x"00",	    HM2DPLLMPBitMask),
 		(IOPortTag,		x"00",		ClockLowTag,	x"02",			PortAddr&PadT,				IOPortNumRegs,			x"00",		IOPortMPBitMask),
 		(StepGenTag,	x"02",		ClockLowTag,	x"05",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
 		(FWIDTag,       x"00",  	ClockLowTag,    x"01",  		FWIDAddr&PadT,        		FWIDNumRegs,            x"00",  	FWIDMPBitMask),
 		(PWMTag,		x"00",		ClockHighTag,	x"05",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
 		(LEDTag,		x"00",		ClockLowTag,	x"01",			LEDAddr&PadT,				LEDNumRegs,				x"00",		LEDMPBitMask),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
 		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
@@ -161,8 +161,8 @@ package PIN_REPLICOOKIE is
     -- 	Base func  sec unit sec func	sec pin				-- hostmot2 Header	Pin Dir	Func
 		
 		IOPortTag & x"04" & PWMTag & PWMAOutPin,    		-- I/O 24	JA2		05	out	PWM - bed heater
-		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 25	JA2		6	io	GPIO
-        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 26	JA2		7	io	GPIO
+		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 25	JA2		6	io	GPIO - hardware ESTOP in
+        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 26	JA2		7	io	GPIO - software ESTOP out
 		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 27	JA2		8	io	GPIO
 		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 28	JA2		11	io	GPIO
 		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 29	JA2		12	io	GPIO
