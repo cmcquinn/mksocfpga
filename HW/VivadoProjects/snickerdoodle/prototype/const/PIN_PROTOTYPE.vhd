@@ -80,83 +80,94 @@ use work.IDROMConst.all;
 -- pinout, and number of registers.
 
 package PIN_PROTOTYPE is
-	constant ModuleID : ModuleIDType :=(
-	--	Module			Version No.	Clock			NumInstances	BaseAddr					NumRegisters			Strides		BitMask
-		(WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
-		(IOPortTag,		x"00",		ClockLowTag,	x"02",			PortAddr&PadT,				IOPortNumRegs,			x"00",		IOPortMPBitMask),
-		(StepGenTag,	x"02",		ClockLowTag,	x"01",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
-		(FWIDTag,       x"00",  	ClockLowTag,    x"01",  		FWIDAddr&PadT,        		FWIDNumRegs,            x"00",  	FWIDMPBitMask),
-		(PWMTag,		x"00",		ClockHighTag,	x"02",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
-		(LEDTag,		x"00",		ClockLowTag,	x"01",			LEDAddr&PadT,				LEDNumRegs,				x"00",		LEDMPBitMask),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
-		(NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000")
-		);
+    constant ModuleID : ModuleIDType :=(
+    --	Module			Version No.	Clock			NumInstances	BaseAddr					NumRegisters			Strides		BitMask
+        (WatchDogTag,	x"00",		ClockLowTag,	x"01",			WatchDogTimeAddr&PadT,		WatchDogNumRegs,		x"00",		WatchDogMPBitMask),
+        (IOPortTag,		x"00",		ClockLowTag,	x"01",			PortAddr&PadT,				IOPortNumRegs,			x"00",		IOPortMPBitMask),
+        (StepGenTag,	x"02",		ClockLowTag,	x"02",			StepGenRateAddr&PadT,		StepGenNumRegs,		    x"00",		StepGenMPBitMask),
+        (FWIDTag,       x"00",  	ClockLowTag,    x"01",  		FWIDAddr&PadT,        		FWIDNumRegs,            x"00",  	FWIDMPBitMask),
+        (PWMTag,		x"00",		ClockHighTag,	x"02",			PWMValAddr&PadT,			PWMNumRegs,				x"00",		PWMMPBitMask),
+        (LEDTag,		x"00",		ClockLowTag,	x"01",			LEDAddr&PadT,				LEDNumRegs,				x"00",		LEDMPBitMask),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000"),
+        (NullTag,		x"00",		NullTag,		x"00",			NullAddr&PadT,				x"00",					x"00",		x"00000000")
+        );
 
-	-- PinDesc
-	-- The PinDesk declaration is an array that controls how the pins of the modules are
-	-- ordered. The order in which the the pins appear here determines the order in which
-	-- they are assigned in the HM2 IOBits bus, with the first pin in the array being bit 0
-	-- of IOBits, and the last pin being bit n-1.
+    -- PinDesc
+    -- The PinDesk declaration is an array that controls how the pins of the modules are
+    -- ordered. The order in which the the pins appear here determines the order in which
+    -- they are assigned in the HM2 IOBits bus, with the first pin in the array being bit 0
+    -- of IOBits, and the last pin being bit n-1.
 
-	constant PinDesc : PinDescType :=(
-    -- 	Base func	sec unit sec func 	 sec pin			-- hostmot2 Header	Pin Dir	Func
-	--	Prototyping board
-		IOPortTag & x"00" & StepGenTag & StepGenDirPin,     -- I/O 00	JA1		05	out	Dir
-		IOPortTag & x"00" & StepGenTag & StepGenStepPin,	-- I/O 01	JA1		06	out	Step
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 02	JA1		07  out	GPIO - enable
-		IOPortTag & x"00" & NullTag & NullPin,				-- I/O 03	JA1		08  in	GPIO - Home/limit		
-		IOPortTag & x"00" & PWMTag & PWMAOutPin,    		-- I/O 04	JA2		05	out	PWM
-		IOPortTag & x"01" & PWMTag & PWMAOutPin,    		-- I/O 05	JA2		05	out	PWM
-		IOPortTag & x"00" & NullTag & NullPin,	            -- I/O 06	JA2		6	in	GPIO - ESTOP
-        IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 07	JA2		7	io	GPIO -
-		IOPortTag & x"00" & NullTag & NullPin, 				-- I/O 08	JA2		8	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,    			-- I/O 09	JA2		11	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,  		    -- I/O 10	JA2		12	io	GPIO
-		IOPortTag & x"00" & NullTag & NullPin,   	        -- I/O 11	JA2		13	io	GPIO
+    constant PinDesc : PinDescType :=(
+    -- 	PrimaryTag	SecUnit   SecTag	   SecPin			-- hostmot2 Header	Pin Dir	Func
+    --	Prototyping board
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 00   JA1     4  in  GPIO
+        IOPortTag & x"00" &   StepGenTag & StepGenDirPin,   -- I/O 01   JA1     5  out Dir
+        IOPortTag & x"00" &   StepGenTag & StepGenStepPin,  -- I/O 02   JA1     6  out Step
+        IOPortTag & x"01" &   StepGenTag & StepGenDirPin,   -- I/O 03   JA1     7  out Dir
+        IOPortTag & x"01" &   StepGenTag & StepGenStepPin,  -- I/O 04   JA1     8  out Step
+        IOPortTag & x"00" &   PWMTag     & PWMAOutPin,      -- I/O 05   JA1     11  out PWM
+        IOPortTag & x"01" &   PWMTag     & PWMAOutPin,      -- I/O 06   JA1     12  out PWM
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 07   JA1     13  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 08   JA1     14  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 09   JA1     17  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 10   JA1     18  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 11   JA1     19  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 12   JA1     20  in  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 13   JA1     23  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 14   JA1     24  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 15   JA1     25  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 16   JA1     26  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 17   JA1     29  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 18   JA1     30  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 19   JA1     31  in  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 20   JA1     32  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 21   JA1     35  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 22   JA1     36  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 23   JA1     37  io  GPIO
+        
 
-		-- Fill remaining 144 pins
-        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        -- Fill remaining 144 pins
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin, 
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
 
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
-		emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin);
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,
+        emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin,emptypin);
 
 end package PIN_PROTOTYPE;

@@ -11,12 +11,12 @@ def gen_fwid(*args,**kwargs):
     # Of the 5 LEDs on the Snickerdoodle board,
     # 1 is accessable for user applications
     fw.fpga_part_number = "7z020"
-    fw.num_leds = 1
+    fw.num_leds = 4
     fw.board_name = "Prototype"
 
     # 25 out of the 40 pins on each header are usable
     c = fw.connector.add()
-    c.name = "JA.GPIO1"
-    c.pins = 17
+    c.name = "JA1"
+    c.pins = 25
 
     return fw

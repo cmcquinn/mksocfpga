@@ -73,11 +73,11 @@ use work.IDROMConst.all;
 
 package PIN_ZJD2CB_36 is
 	constant ModuleID : ModuleIDType :=(
-    (HM2DPLLTag,	x"00",	ClockLowTag,	    x"01",	HM2DPLLBaseRateAddr&PadT,	    HM2DPLLNumRegs,		    x"00",	HM2DPLLMPBitMask),
-		(WatchDogTag,	x"00",	ClockLowTag,	    x"01",	WatchDogTimeAddr&PadT,		    WatchDogNumRegs,			x"00",	WatchDogMPBitMask),
-		(IOPortTag,		x"00",	ClockLowTag,	    x"02",	PortAddr&PadT,								IOPortNumRegs,				x"00",	IOPortMPBitMask),
-		(StepGenTag,	x"02",	ClockLowTag,	    x"05",	StepGenRateAddr&PadT,					StepGenNumRegs,		    x"00",	StepGenMPBitMask),
-		(FWIDTag,     x"00",  ClockLowTag,    	x"01",  FWIDAddr&PadT,        				FWIDNumRegs,          x"00",  FWIDMPBitMask),
+    	(HM2DPLLTag,	x"00",	ClockLowTag,	    x"01",	HM2DPLLBaseRateAddr&PadT,	    HM2DPLLNumRegs,		    x"00",	HM2DPLLMPBitMask),
+		(WatchDogTag,	x"00",	ClockLowTag,	    x"01",	WatchDogTimeAddr&PadT,		    WatchDogNumRegs,		x"00",	WatchDogMPBitMask),
+		(IOPortTag,		x"00",	ClockLowTag,	    x"02",	PortAddr&PadT,					IOPortNumRegs,			x"00",	IOPortMPBitMask),
+		(StepGenTag,	x"02",	ClockLowTag,	    x"05",	StepGenRateAddr&PadT,			StepGenNumRegs,		    x"00",	StepGenMPBitMask),
+		(FWIDTag,	    x"00",  ClockLowTag,    	x"01",  FWIDAddr&PadT,        			FWIDNumRegs,  	        x"00",  FWIDMPBitMask),
 		(NullTag,		x"00",	NullTag,			x"00",	NullAddr&PadT,					x"00",					x"00",	x"00000000"),
 		(NullTag,		x"00",	NullTag,			x"00",	NullAddr&PadT,					x"00",					x"00",	x"00000000"),
 		(NullTag,		x"00",	NullTag,			x"00",	NullAddr&PadT,					x"00",					x"00",	x"00000000"),

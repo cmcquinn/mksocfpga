@@ -14,6 +14,16 @@ if [ -z "$1" ]; then
     usage
 fi
 
+if ! [ -x "$(command -v vivado)" ]; then
+    echo "Vivado not found on \$PATH. Try \"source /opt/Xilinx/Vivado/XXXXX/settings64.sh\""
+    exit 1
+fi
+
+if ! [ -x "$(command -v bootgen)" ]; then
+    echo "bootgen not found on $PATH. Try \"source /opt/Xilinx/Vivado/XXXXX/settings64.sh\""
+    exit 1
+fi
+
 CUR_DIR=`realpath .`
 CONFIG_FILE=`realpath $1`
 
@@ -80,7 +90,7 @@ python genfwid.py "$FWID_NAME" > "$PRJ_DIR_CREATED/firmware_id.mif"
 cd ../VivadoProjects
 
 # Run the tcl script to build the project and generate the bitfile
-/opt/Xilinx/Vivado/2017.4/bin/vivado -mode batch -notrace -source "$PRJ_FILE"
+vivado -mode batch -notrace -source "$PRJ_FILE"
 
 # Update the bif file for bootgen
 # component file1 needs the pin file path
@@ -89,4 +99,4 @@ sed "s|%BIT_FILE%|$PRJ_DIR_CREATED/$BIT_FILE|" \
     bif/all.bif
 
 # Now use bootgen so we can program it from linux
-/opt/Xilinx/SDK/2017.4/bin/bootgen -log trace -image bif/all.bif -w -process_bitstream bin
+bootgen -log trace -image bif/all.bif -w -process_bitstream bin
