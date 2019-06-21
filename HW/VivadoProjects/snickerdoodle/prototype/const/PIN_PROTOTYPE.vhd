@@ -125,20 +125,20 @@ package PIN_PROTOTYPE is
     constant PinDesc : PinDescType :=(
     -- 	PrimaryTag	SecUnit   SecTag	   SecPin			-- hostmot2 Header	Pin Dir	Func
     --	Prototyping board
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 00   JA1     4  in  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 00   JA1     4  out Power enable
         IOPortTag & x"00" &   StepGenTag & StepGenDirPin,   -- I/O 01   JA1     5  out Dir
         IOPortTag & x"00" &   StepGenTag & StepGenStepPin,  -- I/O 02   JA1     6  out Step
         IOPortTag & x"01" &   StepGenTag & StepGenDirPin,   -- I/O 03   JA1     7  out Dir
         IOPortTag & x"01" &   StepGenTag & StepGenStepPin,  -- I/O 04   JA1     8  out Step
         IOPortTag & x"00" &   PWMTag     & PWMAOutPin,      -- I/O 05   JA1     11  out PWM
         IOPortTag & x"01" &   PWMTag     & PWMAOutPin,      -- I/O 06   JA1     12  out PWM
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 07   JA1     13  io  GPIO
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 08   JA1     14  io  GPIO
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 09   JA1     17  io  GPIO
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 10   JA1     18  io  GPIO
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 11   JA1     19  io  GPIO
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 12   JA1     20  in  GPIO
-        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 13   JA1     23  io  GPIO
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 07   JA1     13  in  GPIO - axis 0 limit
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 08   JA1     14  out  GPIO - axis 0 enable
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 09   JA1     17  in  GPIO - axis 1 limit
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 10   JA1     18  out  GPIO - axis 1 enable
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 11   JA1     19  in  GPIO - ESTOP in
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 12   JA1     20  out  GPIO - ESTOP out
+        IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 13   JA1     23  out  GPIO - Machine power LED
         IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 14   JA1     24  io  GPIO
         IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 15   JA1     25  io  GPIO
         IOPortTag & x"00" &   NullTag    & NullPin,         -- I/O 16   JA1     26  io  GPIO
