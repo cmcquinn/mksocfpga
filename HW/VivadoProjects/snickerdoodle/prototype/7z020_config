@@ -37,5 +37,5 @@ FWID_NAME=FWID_PROTOTYPE
 ############################################################################
 
 # The name of the board to compile into the IP. Matches board name in hal files
-BOARD_NAME_HIGH_HEX=45494B43     #CKIE
-BOARD_NAME_LOW_HEX=54534554      #TEST
+BOARD_NAME_HIGH_HEX=544F5250     #PROT
+BOARD_NAME_LOW_HEX=45494B43      #TEST

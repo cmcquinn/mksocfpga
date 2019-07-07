@@ -8,15 +8,14 @@ def gen_fwid(*args,**kwargs):
     fw.build_sha = get_git_revision_short_hash()
     fw.comment = get_build_url()
 
-    # Of the 5 LEDs on the Snickerdoodle board,
-    # 1 is accessable for user applications
+    # 1 hm2 LED 
     fw.fpga_part_number = "7z020"
-    fw.num_leds = 4
+    fw.num_leds = 1
     fw.board_name = "Prototype"
 
-    # 25 out of the 40 pins on each header are usable
+    # 24 pins called out in PIN_PROTOTYPE.vhd
     c = fw.connector.add()
     c.name = "JA1"
-    c.pins = 25
+    c.pins = 24
 
     return fw
