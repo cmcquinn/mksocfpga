@@ -649,7 +649,7 @@ set_global_assignment -name ENABLE_SIGNALTAP OFF
 set_global_assignment -name SDC_FILE DE0_Nano_SoC_Cramps.sdc
 set_global_assignment -name VHDL_FILE ../Common/firmware_id.vhd
 set_global_assignment -name MIF_FILE firmware_id.mif
-set_global_assignment -name QIP_FILE hm3_DE0_Nano_SoC.qip
+set_global_assignment -name QIP_FILE hm3_DE0_Nano_SoC_Cramps.qip
 set_global_assignment -name QIP_FILE ../../hm2/hm3_socfpga.qip
 set_global_assignment -name QIP_FILE hm3_pin_config.qip
 set_global_assignment -name SYSTEMVERILOG_FILE ../Common/capsense.sv
@@ -663,5 +663,4 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../Common/adc_ltc2308_fifo.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../Common/bidir_io.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../Common/gpio_adr_decoder_reg.sv
 set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
-set_global_assignment -name SIGNALTAP_FILE stp1.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
