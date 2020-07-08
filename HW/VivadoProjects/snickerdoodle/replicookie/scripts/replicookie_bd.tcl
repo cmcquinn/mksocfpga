@@ -26,31 +26,32 @@ set current_vivado_version [version -short]
 # START
 ################################################################
 
-# To test this script, run the following commands from Vivado Tcl console:
-# source soc_system_script.tcl
-
-# If there is no project opened, this script will create a
-# project, but make sure you do not have an existing project
-# <./myproj/project_1.xpr> in the current working folder.
-
-set list_projs [get_projects -quiet]
-if { $list_projs eq "" } {
-   create_project project_1 myproj -part xc7z020clg400-3
-   set_property BOARD_PART krtkl.com:snickerdoodle_black:part0:1.0 [current_project]
+# CHECKING IF PROJECT EXISTS
+if { [get_projects -quiet] eq "" } {
+   puts "ERROR: Please open or create a project!"
+   return 1
 }
 
-
 # CHANGE DESIGN NAME HERE
+variable design_name
 set design_name soc_system
 
 # This script was generated for a remote BD. To create a non-remote design,
 # change the variable <run_remote_bd_flow> to <0>.
 
-set run_remote_bd_flow 1
+set run_remote_bd_flow 0
 if { $run_remote_bd_flow == 1 } {
+  # Set the reference directory for source file relative paths (by default
+  # the value is script directory path)
+  set origin_dir ./VivadoProjects/snickerdoodle/replicookie/replicookie_7z020_created/src
 
-  set str_bd_folder [get_property directory [current_project]]/src
-  set str_bd_filepath ${str_bd_folder}/${design_name}.bd
+  # Use origin directory path location variable, if specified in the tcl shell
+  if { [info exists ::origin_dir_loc] } {
+     set origin_dir $::origin_dir_loc
+  }
+
+  set str_bd_folder [file normalize ${origin_dir}]
+  set str_bd_filepath ${str_bd_folder}/${design_name}/${design_name}.bd
 
   # Check if remote design exists on disk
   if { [file exists $str_bd_filepath ] == 1 } {
@@ -109,6 +110,7 @@ current_bd_design $design_name
 proc create_root_design { parentCell } {
 
   variable script_folder
+  variable design_name
 
   if { $parentCell eq "" } {
      set parentCell [get_bd_cells /]
@@ -667,6 +669,7 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
