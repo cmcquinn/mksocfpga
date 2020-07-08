@@ -16,6 +16,6 @@ def get_build_url():
 
 
 if __name__ == "__main__":
-    print "sha:", get_git_revision_short_hash()
-    print "build_url:", get_build_url()
+    print("sha:", get_git_revision_short_hash())
+    print("build_url:", get_build_url())
 

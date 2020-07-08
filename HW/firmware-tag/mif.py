@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # lifted from https://www-asim.lip6.fr/svn/dsx/dsx/trunk/dsx/lib/python/bintools/mif.py
 
 __all__ = ['create']
@@ -11,9 +11,9 @@ def emit_mif_internal(fd, data, width = 4, format='>L'):
         word = data[:4]
         data = data[4:]
         if len(word) < 4:
-            word = word + "\x00"*(4-len(word))
+            word = word + b"\x00"*(4-len(word))
         wval, = struct.unpack(format, word)
-        print >> fd, '  %04x : %08x;'%( addr, wval )
+        print('  %04x : %08x;'%( addr, wval ), file=fd)
         addr += 1
     return addr
 
@@ -22,17 +22,17 @@ def create(fd, width, depth, data, format='>L'):
     wdepth = depth / (width / 8)
     if wdepth*(width / 8) < depth:
         wdepth += 1
-    print >> fd, "WIDTH=%d;" % width
-    print >> fd, "DEPTH=%d;" % wdepth
-    print >> fd
-    print >> fd, "ADDRESS_RADIX=HEX;"
-    print >> fd, "DATA_RADIX=HEX;"
-    print >> fd
-    print >> fd, "CONTENT BEGIN"
+    print("WIDTH=%d;" % width, file=fd)
+    print("DEPTH=%d;" % wdepth, file=fd)
+    print(file=fd)
+    print("ADDRESS_RADIX=HEX;", file=fd)
+    print("DATA_RADIX=HEX;", file=fd)
+    print(file=fd)
+    print("CONTENT BEGIN", file=fd)
     end_addr = emit_mif_internal(fd, data, format=format)
     if end_addr < depth/(width/8)-1:
-        print >> fd, "  [%04x .. %04x] : %08x;" % (end_addr, depth/(width/8)-1, 0)
-    print >> fd, "END;"
+        print("  [%04x .. %04x] : %08x;" % (end_addr, depth/(width/8)-1, 0), file=fd)
+    print("END;", file=fd)
 
 
 def _main():

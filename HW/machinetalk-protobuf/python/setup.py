@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from distutils.core import setup
 
-#! /usr/bin/env python
+#! /usr/bin/env python3
 #
 # See README for usage instructions.
 import glob

@@ -87,7 +87,7 @@ fi
 # Create the firmware_id.mif file
 cd ../firmware-tag
 make py-proto
-python genfwid.py "$FWID_NAME" > "$PRJ_DIR_CREATED/firmware_id.mif"
+python3 genfwid.py "$FWID_NAME" > "$PRJ_DIR_CREATED/firmware_id.mif"
 cd ../VivadoProjects
 
 # Run the tcl script to build the project and generate the bitfile

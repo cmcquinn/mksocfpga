@@ -28,10 +28,10 @@ fw = fwid.gen_fwid()
 # serialize it to a blob
 buffer = fw.SerializeToString()
 
-print "%%\nconfig argument: %s" % (args.config)
-print "\nsize of encoded message: %d 0x%x" % (fw.ByteSize(),fw.ByteSize())
-print "text format representation:\n---\n", str(fw), "---\n"
-print "wire format length=%d %s" % (len(buffer), binascii.hexlify(buffer))
+print(("%%\nconfig argument: %s" % (args.config)))
+print(("\nsize of encoded message: %d 0x%x" % (fw.ByteSize(),fw.ByteSize())))
+print(("text format representation:\n---\n", str(fw), "---\n"))
+print(("wire format length=%d %s" % (len(buffer), binascii.hexlify(buffer))))
 
 # generate the Altera MIF file
 # prepend with cookie and length field
@@ -39,7 +39,7 @@ blob = struct.pack(format, cookie) + struct.pack(format,  fw.ByteSize()) + buffe
 
 assert len(blob) <= maxsize, ValueError("encoded message size too large: %d (max %d)" % (len(blob), maxsize))
 
-print "\nsize of MIF struct including cookie and length field: %d" % (len(blob))
-print "%\n\n"
+print(("\nsize of MIF struct including cookie and length field: %d" % (len(blob))))
+print("%\n\n")
 
 mif.create(sys.stdout, width, len(blob), blob, format=format)
